@@ -1,48 +1,6 @@
 #!/bin/sh
-echo "WARNING: This script will install docker AND add it as an apt source."
-echo ""
-echo "If you do not want this, please press ctrl + C to cancel the script."
-echo ""
-echo "The script will start in 10 seconds."
-
-sleep 10
 
 echo "Running BYOB app setup..."
-
-# Install Python if necessary
-which python3 > /dev/null
-status=$?
-
-if test $status -ne 0
-then
-	echo "Installing Python 3.6..."
-	apt-get install python3.6 -y
-
-else
-	echo "Confirmed Python is installed."
-	
-	# Installs Pip even if a Python installation is found because some users don't install pip
-	
-	sudo apt install python3-pip
-
-fi
-
-# Install Docker if necessary
-which docker > /dev/null
-status=$?
-
-if test $status -ne 0
-then
-	echo "Installing Docker..."
-	chmod +x get-docker.sh
-	./get-docker.sh
-	sudo usermod -aG docker $USER
-	sudo chmod 666 /var/run/docker.sock
-	
-else
-	echo "Confirmed Docker is installed."
-	echo "If you run into issues generating a Windows payload, please uninstall docker and rerun this script"
-fi
 
 # Install Python packages
 echo "Installing Python packages..."
